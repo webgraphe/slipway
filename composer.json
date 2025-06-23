@@ -1,0 +1,30 @@
+{
+    "name": "webgraphe/slipway",
+    "description": "Docker utility for PHP projects",
+    "type": "library",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Jean-Philippe Léveillé",
+            "email": "jpleveille@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Webgraphe\\Slipway\\": "src/"
+        }
+    },
+    "bin": [
+        "slipway"
+    ],
+    "scripts": {
+        "slipway": [
+            "./slipway"
+        ]
+    },
+    "minimum-stability": "stable"
+}

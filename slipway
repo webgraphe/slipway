@@ -1,0 +1,45 @@
+#!/usr/bin/env php
+<?php
+
+use Webgraphe\Slipway\DockerCompose;
+use Webgraphe\Slipway\Exceptions\UsageException;
+
+$dirs = [
+    __DIR__ . '/../..',
+    __DIR__ . '/../vendor',
+    __DIR__ . '/vendor',
+];
+
+foreach ($dirs as $dir) {
+    if (file_exists($autoloadFile = "$dir/autoload.php")) {
+        require $autoloadFile;
+        define('SLIPWAY_AUTOLOADED', true);
+    }
+}
+if (!defined('SLIPWAY_AUTOLOADED')) {
+    fwrite(
+        STDERR,
+        'You need to set up the project dependencies using Composer:' . PHP_EOL . PHP_EOL
+        . '    composer install' . PHP_EOL . PHP_EOL
+        . 'You can learn all about Composer on https://getcomposer.org' . PHP_EOL,
+    );
+
+    exit(1);
+}
+
+try {
+    DockerCompose::fromGlobals()->export(getcwd());
+} catch (UsageException $e) {
+    if (strlen($message = $e->getMessage())) {
+        echo $message . PHP_EOL;
+    }
+
+    echo rtrim(
+            <<<USAGE
+                Usage:
+                    slipway <NAME>
+                USAGE,
+        ) . PHP_EOL;
+} catch (Throwable $t) {
+    echo $t::class . ': ' . $t->getMessage() . PHP_EOL;
+}
