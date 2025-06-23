@@ -1,8 +1,8 @@
 {
     "name": "webgraphe/slipway",
-    "description": "Docker utility for PHP projects",
+    "description": "Fast Docker Composition for PHP Projects development",
     "type": "library",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "authors": [
         {
             "name": "Jean-Philippe Léveillé",
