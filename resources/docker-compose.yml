@@ -1,0 +1,21 @@
+name: %%NAME%%
+services:
+    php-cli:
+        container_name: %%NAME%%-php-cli
+        build:
+            context: .
+            dockerfile: .docker/php-cli/Dockerfile
+        volumes:
+            - .:/opt/project
+        cap_add:
+            - SYS_PTRACE
+        command: "/usr/bin/tail -f /dev/null"
+        networks:
+            - bridge-network
+            - %%NAME%%-network
+
+networks:
+    bridge-network:
+        driver: bridge
+    %%NAME%%-network:
+        external: true
